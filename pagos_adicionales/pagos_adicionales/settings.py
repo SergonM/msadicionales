@@ -78,15 +78,13 @@ WSGI_APPLICATION = "pagos_adicionales.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'pagos_adicionales_db',
+        'NAME': 'estudiantes',  # Nombre de tu base de datos
         'CLIENT': {
-            'host': 'mongodb://usuario:Password@10.128.0.4:27017/estudiantes',
-            'authSource': '<DB_NAME>',
-            'authMechanism': 'SCRAM-SHA-256',
+            'host': '10.128.0.4',
+            'port': 27017,
         }
     }
 }
-
 
 
 # Password validation
