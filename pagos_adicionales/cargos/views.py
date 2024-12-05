@@ -6,11 +6,12 @@ import json
 from bson import ObjectId
 from django.utils.decorators import method_decorator
 
-@method_decorator(csrf_exempt, name='dispatch')
+#@method_decorator(csrf_exempt, name='dispatch')
 class CargosListView(View):
     def get(self, request):
         # Listar todos los estudiantes y sus cargos
         estudiantes = Estudiante.objects.all()
+        print(estudiantes)
         data = [{"id": str(estudiante._id), "nombre": estudiante.nombre,
                  "codigo": estudiante.codigo, "cargos": estudiante.cargos} for estudiante in estudiantes]
         return JsonResponse(data, safe=False)
@@ -34,7 +35,7 @@ class CargosListView(View):
             return JsonResponse({"message": "Estudiante no encontrado"}, status=404)
 
 
-@method_decorator(csrf_exempt, name='dispatch')
+#@method_decorator(csrf_exempt, name='dispatch')
 class CargosDetailView(View):
     def get(self, request, id):
         try:
