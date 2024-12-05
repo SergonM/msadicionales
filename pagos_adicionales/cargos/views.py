@@ -4,7 +4,9 @@ from django.views import View
 from .models import Estudiante
 import json
 from bson import ObjectId
+from django.utils.decorators import method_decorator
 
+@method_decorator(csrf_exempt, name='dispatch')
 class CargosListView(View):
     def get(self, request):
         # Listar todos los estudiantes y sus cargos
@@ -13,7 +15,6 @@ class CargosListView(View):
                  "codigo": estudiante.codigo, "cargos": estudiante.cargos} for estudiante in estudiantes]
         return JsonResponse(data, safe=False)
 
-    @csrf_exempt
     def post(self, request):
         data = json.loads(request.body)
         try:
@@ -32,6 +33,8 @@ class CargosListView(View):
         except Estudiante.DoesNotExist:
             return JsonResponse({"message": "Estudiante no encontrado"}, status=404)
 
+
+@method_decorator(csrf_exempt, name='dispatch')
 class CargosDetailView(View):
     def get(self, request, id):
         try:
@@ -48,7 +51,6 @@ class CargosDetailView(View):
         except Estudiante.DoesNotExist:
             return JsonResponse({"message": "Estudiante no encontrado"}, status=404)
 
-    @csrf_exempt
     def put(self, request, id):
         data = json.loads(request.body)
         try:
